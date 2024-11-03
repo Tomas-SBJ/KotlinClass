@@ -1,7 +1,7 @@
 package br.com.alura.gameapi.models
 
 import br.com.alura.gameapi.utils.transformerAge
-import java.util.Scanner
+import java.util.*
 import kotlin.random.Random
 
 data class User(var name: String,
@@ -56,6 +56,11 @@ data class User(var name: String,
         }
     }
 
+    fun rentGame(game: Game,
+                 period: Period): Rent {
+        return Rent(this, game, period)
+    }
+
     companion object {
         fun createUser(reader: Scanner): User {
             println("Boas vindas ao GameApi! Vamos fazer seu cadastro. Digite seu nome:")
@@ -65,7 +70,7 @@ data class User(var name: String,
             println("Deseja completar seu cadastro com usuário e data de nascimento? (S/N)")
             val option = reader.nextLine()
 
-            var user = User(name, email)
+            val user = User(name, email)
 
             if (option.equals("s", true)) {
                 println("Digite sua data de nascimento(DD/MM/AAAA):")

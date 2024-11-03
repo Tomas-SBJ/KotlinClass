@@ -13,8 +13,8 @@ class Game(val title: String,
 
     override fun toString(): String {
         return "Title: $title, " +
-               "Thumb: $thumb" +
-               "Description: $description" +
+               "Thumb: $thumb, " +
+               "Description: $description, " +
                "Price: $price"
     }
 }
