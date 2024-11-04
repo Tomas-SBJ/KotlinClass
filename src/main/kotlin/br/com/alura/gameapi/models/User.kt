@@ -5,7 +5,7 @@ import java.util.*
 import kotlin.random.Random
 
 data class User(var name: String,
-                var email: String) {
+                var email: String): Recommendation {
     var birthDate: String? = null
 
     var username: String? = null
@@ -19,7 +19,29 @@ data class User(var name: String,
     var internalId: String? = null
         private set
 
+    var plan: Plan = SinglePlan("BRONZE")
+
     val searchGames = mutableListOf<Game?>()
+    val rentalGames = mutableListOf<Rent>()
+    private val ratingList = mutableListOf<Int>()
+    val recommendedGames = mutableListOf<Game>()
+
+    override val average: Double
+        get() = ratingList.average()
+
+    override fun recommend(rating: Int) {
+        if (rating < 1 || rating > 10) {
+            println("Rating must be between 1 and 10")
+            return
+        }
+
+        ratingList.add(rating)
+    }
+
+    fun recommendGame(game: Game, rating: Int) {
+        game.recommend(rating)
+        recommendedGames.add(game)
+    }
 
     constructor(name: String, email: String, birthDate: String, user: String):
             this(name, email) {
@@ -37,7 +59,13 @@ data class User(var name: String,
     }
 
     override fun toString(): String {
-        return "User(name='$name', email='$email', birthDate='$birthDate', username='$username', internalId='$internalId')"
+        return "User:\n" +
+                "Name: $name\n" +
+                "Email: $email\n" +
+                "Birth date: $birthDate\n" +
+                "Username: $username\n" +
+                "InternalId: $internalId\n" +
+                "Reputation: $average"
     }
 
     private fun createInternalId(): String {
@@ -58,7 +86,16 @@ data class User(var name: String,
 
     fun rentGame(game: Game,
                  period: Period): Rent {
-        return Rent(this, game, period)
+        val rent = Rent(this, game, period)
+        rentalGames.add(rent)
+
+        return rent
+    }
+
+    fun filterMonthRent(month: Int): List<Game> {
+        return rentalGames
+            .filter { rent -> rent.period.initialDate.monthValue == month }
+            .map { rent -> rent.game }
     }
 
     companion object {

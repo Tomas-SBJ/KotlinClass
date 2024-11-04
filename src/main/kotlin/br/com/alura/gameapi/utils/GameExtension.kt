@@ -6,6 +6,6 @@ import br.com.alura.gameapi.models.InfoGameJson
 fun InfoGameJson.toGame(): Game {
     return Game(this.titulo,
         this.capa,
-        this.preco,
+        this.preco.toBigDecimal(),
         this.descricao)
 }
