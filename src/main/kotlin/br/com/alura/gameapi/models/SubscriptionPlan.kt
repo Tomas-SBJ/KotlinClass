@@ -7,7 +7,8 @@ class SubscriptionPlan(
     type: String,
     val monthlyFee: BigDecimal,
     val includeGames: Int,
-    val discountPercentage: BigDecimal): Plan(type) {
+    val discountPercentage: BigDecimal,
+    id: Int = 0): Plan(type, id) {
 
     override fun getValue(rent: Rent): BigDecimal {
         val totalMonthlyGames =
@@ -24,5 +25,14 @@ class SubscriptionPlan(
         }
 
         return originValue.setScale(2, RoundingMode.HALF_EVEN)
+    }
+
+    override fun toString(): String {
+        return "Subscription Plan\n" +
+                "Type: $type\n" +
+                "Id: $id\n" +
+                "Monthly fee: $monthlyFee\n" +
+                "Includes games: $includeGames\n" +
+                "Discount percentage: $discountPercentage\n"
     }
 }

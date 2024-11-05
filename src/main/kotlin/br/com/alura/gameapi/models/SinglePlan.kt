@@ -4,7 +4,8 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class SinglePlan(
-    type: String): Plan(type) {
+    type: String,
+    id: Int = 0): Plan(type, id) {
 
     override fun getValue(rent: Rent): BigDecimal {
         var originValue = super.getValue(rent)
@@ -14,5 +15,11 @@ class SinglePlan(
         }
 
         return originValue.setScale(2, RoundingMode.HALF_UP)
+    }
+
+    override fun toString(): String {
+        return "Singles Plan\n" +
+                "Type: $type\n" +
+                "Id: $id\n"
     }
 }

@@ -6,6 +6,7 @@ import java.math.BigDecimal
 data class Game(
     @Expose val title: String,
     @Expose val thumb: String): Recommendation {
+    var id = 0
     var description: String? = null
     var price = BigDecimal.ZERO
     private val ratingList = mutableListOf<Int>()
@@ -22,14 +23,15 @@ data class Game(
         ratingList.add(rating)
     }
 
-    constructor (title: String, thumb: String, price: BigDecimal, description: String?)
+    constructor (title: String, thumb: String, price: BigDecimal, description: String?, id: Int = 0)
             : this(title, thumb) {
         this.price = price
         this.description = description
     }
 
     override fun toString(): String {
-        return "Title: $title\n " +
+        return "Id: $id\n" +
+                "Title: $title\n " +
                 "Thumb: $thumb\n " +
                 "Description: $description\n " +
                 "Price: $price\n " +

@@ -6,6 +6,7 @@ import kotlin.random.Random
 
 data class User(var name: String,
                 var email: String): Recommendation {
+    var id = 0
     var birthDate: String? = null
 
     var username: String? = null
@@ -43,7 +44,7 @@ data class User(var name: String,
         recommendedGames.add(game)
     }
 
-    constructor(name: String, email: String, birthDate: String, user: String):
+    constructor(name: String, email: String, birthDate: String?, user: String?, id: Int = 0):
             this(name, email) {
         this.birthDate = birthDate
         this.username = user
@@ -60,6 +61,7 @@ data class User(var name: String,
 
     override fun toString(): String {
         return "User:\n" +
+                "Id: $id\n" +
                 "Name: $name\n" +
                 "Email: $email\n" +
                 "Birth date: $birthDate\n" +

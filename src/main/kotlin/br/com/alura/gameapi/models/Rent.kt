@@ -4,6 +4,7 @@ data class Rent(
     val user: User,
     val game: Game,
     val period: Period) {
+    var id = 0
     val rentValue = user.plan.getValue(this)
 
     override fun toString(): String {
