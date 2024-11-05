@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "games")
-class GameEntity(
+open class GameEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int = 0,
     val title: String = "Game title",
